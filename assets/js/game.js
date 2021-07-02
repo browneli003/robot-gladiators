@@ -6,42 +6,14 @@
 
 
 // You can also log multiple values at once like this
-    console.log(playerInfo.name, playerInfo.attack, playerInfo.health);
-
-//  enemyInfo = 
-    // name: "Roborto",
-    //attack: randomNumber (10, 14)
-        
-    // name: "Amy Android",
-    //attack: randomNumber (10, 14)
-    
-    // name: "Robo Trumble",
-    //attack: randomNumber (10, 14)
-    
-
-var enemyHealth = Math.floor(Math.random()* 21) + 40;
-
-  
-    console.log(enemyInfo.name[0]);
-    console.log(enemyInfo.name[1]);
-    console.log(enemyInfo.name[2]);
-    console.log(enemyInfo.length);
-    for(var i = 0; i < enemyInfo.length; i++) {
-        console.log(enemyInfo.name[i]);
-        console.log(i);
-        console.log(enemyInfo.name[i] + " is at " + i + " index");
-      }
-      
-    window.alert("Welcome to Robot Gladiators!");      
-
-var fight = function(enemy) {
-
-    // function to generate a random numeric value
 var randomNumber = function(min, max) {
     var value = Math.floor(Math.random() * (max - min + 1) + min);
+        return value;
+      };
       
-    return value;
-      }
+    window.alert("Welcome to Robot Gladiators!");       
+
+var fight = function(enemy) {
     while (playerInfo.health > 0 && enemy.health > 0) {
     // ask player if they'd like to fight or run
 var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
@@ -60,7 +32,21 @@ if (confirmSkip) {
 break;
         }
     }
-      
+    
+    // check enemy's health
+    if (enemy.health <= 0) {
+        window.alert(enemy.name + ' has died!');
+          
+        // award player money for winning
+        playerInfo.money = playerInfo.money + 20;
+          
+        // leave while() loop since enemy is dead
+    break;
+        }
+    else {
+        window.alert(enemy.name + ' still has ' + enemy.health + ' health left.');
+        }
+
     // generate random damage value based on player's attack power
 var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
     // remove enemy's health by subtracting the amount set in the playerAttack variable
@@ -68,20 +54,6 @@ var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
     console.log(
     playerInfo.name + ' attacked ' + enemy.name + '. ' + enemy.name + ' now has ' + enemy.health + ' health remaining.'
     );
-    
-    // check enemy's health
-if (enemy.health <= 0) {
-    window.alert(enemy.name + ' has died!');
-      
-    // award player money for winning
-    playerInfo.money = playerInfo.money + 20;
-      
-    // leave while() loop since enemy is dead
-break;
-    }
-else {
-    window.alert(enemy.name + ' still has ' + enemy.health + ' health left.');
-    }
       
     var damage = randomNumber(enemy.attack - 3, enemy.attack);
     // remove player's health by subtracting the amount set in the enemy.attack variable
@@ -101,74 +73,18 @@ else {
         }
     }
 };
-      
-var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
-    health: 100,
-    attack: 10,
-    money: 10,
-    reset: function() {
-    this.health = 100;
-    this.attack = 10;
-    this.money = 10;
-    }, // comma!
-  refillHealth: function() {
-    if (this.money >= 7) {
-        window.alert("Refilling player's health by 20 for 7 dollars.");
-    this.health += 20;
-    this.money -= 7;
-        }   
-    else {
-        window.alert("You don't have enough money!");
-        }
-    }, // comma!
-  upgradeAttack: function() {
-    if (this.money >= 7) {
-        window.alert("Upgrading player's attack by 6 for 7 dollars.")
-    
-    this.attack += 6;
-    this.money -= 7;
-        }   
-    else {
-        window.alert("You don't have enough money!")
-        }
-    }
 
-  };
 
-// You can also log multiple values at once like this
-    console.log(playerInfo.name, playerInfo.attack, playerInfo.health);
-
-    var enemyInfo = [
-        {
-          name: "Roborto",
-          attack: randomNumber (10, 14)
-        },
-        {
-          name: "Amy Android",
-          attack: randomNumber (10, 14)
-        },
-        {
-          name: "Robo Trumble",
-          attack: randomNumber (10, 14)
-        }
-      ];
 
     // fight each enemy-robot by looping over them and fighting them one at a time
 var startGame = function() {
     // reset player stats
 playerInfo.reset();
 
-// function to generate a random numeric value
-var randomNumber = function(min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
-  
-    return value;
-  }
-
     for (var i = 0; i < enemyInfo.length; i++) {
 if (playerInfo.health > 0) {
     window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+    debugger;
       
 var pickedEnemyObj = enemyInfo[i];
       
@@ -193,6 +109,7 @@ break;
     }
     // play again
     // after the loop ends, player is either out of health or enemies to fight, so run the endGame function
+
 endGame()
 };
 
@@ -252,3 +169,61 @@ playerInfo.upgradeAttack();
   }
     };
 }
+
+var playerInfo = {
+    name: window.prompt("What is your robot's name?"),
+    health: 100,
+    attack: 10,
+    money: 10,
+    reset: function() {
+    this.health = 100;
+    this.attack = 10;
+    this.money = 10;
+    }, // comma!
+  refillHealth: function() {
+    if (this.money >= 7) {
+        window.alert("Refilling player's health by 20 for 7 dollars.");
+    this.health += 20;
+    this.money -= 7;
+        }   
+    else {
+        window.alert("You don't have enough money!");
+        }
+    }, // comma!
+  upgradeAttack: function() {
+    if (this.money >= 7) {
+        window.alert("Upgrading player's attack by 6 for 7 dollars.")
+    
+    this.attack += 6;
+    this.money -= 7;
+        }   
+    else {
+        window.alert("You don't have enough money!")
+        }
+    }
+  };
+// You can also log multiple values at once like this
+console.log(playerInfo.name, playerInfo.attack, playerInfo.health);
+
+var enemyInfo = [
+    { name: "Roborto",
+     attack: randomNumber (10, 14),
+         
+     name: "Amy Android",
+     attack: randomNumber (10, 14),
+     
+     name: "Robo Trumble",
+     attack: randomNumber (10, 14),
+     }   
+ ]
+
+    console.log(enemyInfo.name[0]);
+    console.log(enemyInfo.name[1]);
+    console.log(enemyInfo.name[2]);
+    console.log(enemyInfo.length);
+
+    for(var i = 0; i < enemyInfo.length; i++) {
+        console.log(enemyInfo.name[i]);
+        console.log(i);
+        console.log(enemyInfo.name[i] + " is at " + i + " index");
+    }
